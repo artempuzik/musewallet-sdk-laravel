@@ -6,15 +6,14 @@
 
 ```bash
 # Install the package
-composer require artempuzik/musewallet-sdk
-
-# Publish configuration
-php artisan vendor:publish --tag=musewallet-config
+composer require artempuzik/musewallet-sdk-laravel
 ```
+
+**That's it!** The package is ready to use immediately. Laravel will automatically discover and register the service provider.
 
 ### 2. Configuration
 
-Add to your `.env`:
+Add required environment variables to your `.env`:
 
 ```env
 MUSEWALLET_API_URL=https://api.test.musepay.io
@@ -37,7 +36,7 @@ MUSEWALLET_WEBHOOK_SECRET=your_secret
 use MuseWallet\SDK\Facades\MuseWallet;
 
 // Get balance
-$balance = MuseWallet::getPartnerBalance('USDT_TRC20');
+$balance = MuseWallet::getPartnerBalance('USDT');
 
 // Create card holder
 $holder = MuseWallet::createCardHolder([
@@ -50,6 +49,23 @@ $holder = MuseWallet::createCardHolder([
     ]
 ]);
 ```
+
+### 4. Advanced Configuration (Optional)
+
+The package works out-of-the-box with environment variables. If you need to customize advanced settings, publish the configuration file:
+
+```bash
+php artisan vendor:publish --provider="MuseWallet\SDK\MuseWalletServiceProvider" --tag=musewallet-config
+```
+
+This creates `config/musewallet.php` where you can customize:
+- API timeouts and retry attempts
+- Cache settings (TTL, prefix)
+- Logging configuration
+- Event dispatching
+- Multiple card product definitions
+
+> **Note:** Publishing config is **optional**. Only do this if you need to override default behavior or manage complex card product configurations.
 
 ## Integration with Existing Laravel Project
 

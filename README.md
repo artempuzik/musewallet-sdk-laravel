@@ -1,8 +1,8 @@
 # MuseWallet SDK for Laravel
 
-[![Latest Version](https://img.shields.io/packagist/v/artempuzik/musewallet-sdk.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk)
-[![Total Downloads](https://img.shields.io/packagist/dt/artempuzik/musewallet-sdk.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk)
-[![License](https://img.shields.io/packagist/l/artempuzik/musewallet-sdk.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk)
+[![Latest Version](https://img.shields.io/packagist/v/artempuzik/musewallet-sdk-laravel.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/artempuzik/musewallet-sdk-laravel.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk-laravel)
+[![License](https://img.shields.io/packagist/l/artempuzik/musewallet-sdk-laravel.svg)](https://packagist.org/packages/artempuzik/musewallet-sdk-laravel)
 
 A comprehensive Laravel SDK for integrating with MusePay Card API (MuseWallet). This package provides a clean, event-driven interface for managing virtual and physical cards, KYC verification, transactions, and webhooks.
 
@@ -37,16 +37,14 @@ A comprehensive Laravel SDK for integrating with MusePay Card API (MuseWallet). 
 Install the package via Composer:
 
 ```bash
-composer require artempuzik/musewallet-sdk
+composer require artempuzik/musewallet-sdk-laravel
 ```
 
-Publish the configuration file:
-
-```bash
-php artisan vendor:publish --tag=musewallet-config
-```
+**That's it!** The package is ready to use. Laravel will automatically discover and register the service provider.
 
 ## Configuration
+
+### Step 1: Environment Variables (Required)
 
 Add the following environment variables to your `.env` file:
 
@@ -73,6 +71,18 @@ MUSEWALLET_LOGGING_ENABLED=true
 MUSEWALLET_EVENTS_ENABLED=true
 ```
 
+### Step 2: Publish Configuration (Optional)
+
+If you need to customize advanced settings (timeouts, cache, logging, card products), publish the configuration file:
+
+```bash
+php artisan vendor:publish --provider="MuseWallet\SDK\MuseWalletServiceProvider" --tag=musewallet-config
+```
+
+This will create `config/musewallet.php` where you can override default settings.
+
+> **Note:** Publishing the config file is **optional**. The package works with environment variables alone. Only publish if you need to customize advanced settings or manage multiple card products.
+
 ## Basic Usage
 
 ### Using the Facade (with typed responses)
@@ -81,7 +91,7 @@ MUSEWALLET_EVENTS_ENABLED=true
 use MuseWallet\SDK\Facades\MuseWallet;
 
 // Get partner balance - returns PartnerBalanceResponse
-$balance = MuseWallet::getPartnerBalance('USDT_TRC20');
+$balance = MuseWallet::getPartnerBalance('USDT');
 echo "Available: " . $balance->getAvailableBalanceFloat(); // Type-safe!
 echo "Currency: " . $balance->currency;
 echo "Freeze: " . $balance->freezeBalance;
@@ -153,7 +163,7 @@ class CardController extends Controller
 
 ```php
 // Get partner balance
-$balance = MuseWallet::getPartnerBalance('USDT_TRC20');
+$balance = MuseWallet::getPartnerBalance('USDT');
 ```
 
 ### Card Holder Management
@@ -221,7 +231,7 @@ $topup = MuseWallet::topUpCard([
     'card_id' => $cardId,
     'user_id' => $userId,
     'amount' => '100.00',
-    'currency' => 'USDT_TRC20'
+    'currency' => 'USDT'
 ]);
 ```
 
@@ -339,7 +349,7 @@ All service methods return typed Data Transfer Objects for better IDE support an
 use MuseWallet\SDK\Facades\MuseWallet;
 
 // Get balance with typed response
-$balance = MuseWallet::getPartnerBalance('USDT_TRC20');
+$balance = MuseWallet::getPartnerBalance('USDT');
 
 // Access properties with autocomplete
 $available = $balance->availableBalance;           // string|null
@@ -403,7 +413,7 @@ if (ApplyStatus::isSuccessful($status)) {
 }
 
 // Check if currency is supported
-if (Currency::isSupported('USDT_TRC20')) {
+if (Currency::isSupported('USDT')) {
     // Process payment
 }
 
