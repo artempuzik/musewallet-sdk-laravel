@@ -1,0 +1,60 @@
+<?php
+
+namespace MuseWallet\SDK\Events;
+
+/**
+ * Event fired when a card application is approved
+ */
+class ApplicationApprovedEvent extends MuseWalletWebhookEvent
+{
+    /**
+     * Get application ID
+     *
+     * @return string|null
+     */
+    public function getApplicationId(): ?string
+    {
+        return $this->payload['data']['apply_id'] ?? $this->payload['data']['application_id'] ?? null;
+    }
+
+    /**
+     * Get request ID
+     *
+     * @return string|null
+     */
+    public function getRequestId(): ?string
+    {
+        return $this->payload['data']['request_id'] ?? null;
+    }
+
+    /**
+     * Get user ID
+     *
+     * @return string|null
+     */
+    public function getUserId(): ?string
+    {
+        return $this->payload['data']['user_id'] ?? null;
+    }
+
+    /**
+     * Get card ID
+     *
+     * @return string|null
+     */
+    public function getCardId(): ?string
+    {
+        return $this->payload['data']['card_id'] ?? null;
+    }
+
+    /**
+     * Get approval timestamp
+     *
+     * @return string|null
+     */
+    public function getApprovedAt(): ?string
+    {
+        return $this->payload['data']['approved_at'] ?? null;
+    }
+}
+

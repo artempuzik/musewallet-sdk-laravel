@@ -1,0 +1,80 @@
+{
+    "name": "artempuzik/musewallet-sdk-laravel",
+    "description": "MuseWallet SDK for Laravel - Integration with MusePay Card API v1",
+    "type": "library",
+    "keywords": [
+        "musewallet",
+        "musepay",
+        "payment",
+        "card",
+        "api",
+        "laravel",
+        "virtual-cards",
+        "crypto-cards",
+        "usdt"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/artempuzik/musewallet-sdk-laravel",
+    "authors": [
+        {
+            "name": "Artem Puzik",
+            "email": "artem.puzik.it@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/artempuzik/musewallet-sdk-laravel/issues",
+        "source": "https://github.com/artempuzik/musewallet-sdk-laravel",
+        "docs": "https://github.com/artempuzik/musewallet-sdk-laravel/blob/main/README.md"
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "illuminate/support": "^10.0|^11.0",
+        "illuminate/http": "^10.0|^11.0",
+        "illuminate/cache": "^10.0|^11.0",
+        "illuminate/log": "^10.0|^11.0",
+        "illuminate/events": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "orchestra/testbench": "^8.0|^9.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "MuseWallet\\SDK\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MuseWallet\\SDK\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "analyse": "vendor/bin/phpstan analyse src tests",
+        "format": "vendor/bin/php-cs-fixer fix"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MuseWallet\\SDK\\MuseWalletServiceProvider"
+            ],
+            "aliases": {
+                "MuseWallet": "MuseWallet\\SDK\\Facades\\MuseWallet"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
+

@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "musewallet-sdk-2024",
+		"name": "MuseWallet SDK API Collection",
+		"description": "Complete Postman collection for MuseWallet SDK with valid mock data based on MusePay Card API v1.\nRoutes match exactly with application.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "musewallet-sdk"
+	},
+	"item": [
+		{
+			"name": "Partner Operations",
+			"item": [
+				{
+					"name": "Get Partner Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/balance/partner?currency={{currency}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"balance",
+								"partner"
+							],
+							"query": [
+								{
+									"key": "currency",
+									"value": "{{currency}}",
+									"description": "Currency code (e.g., USDT)"
+								}
+							]
+						},
+						"description": "Get partner account balance for specified currency.\nRoute: POST /api/v1/musewallet/balance/partner\nMusePay API: POST /v1/balance/partner"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Card Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/card-products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"card-products"
+							]
+						},
+						"description": "Get list of available card products.\nRoute: GET /api/v1/musewallet/card-products\nPublic endpoint (no authentication required)"
+					},
+					"response": []
+				}
+			],
+			"description": "Partner account operations"
+		},
+		{
+			"name": "Card Holder Management",
+			"item": [
+				{
+					"name": "Create Card Holder (Full)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_xid\": \"{{$randomUUID}}\",\n    \"email\": \"john.doe@example.com\",\n    \"user_name\": \"johndoe\",\n    \"individual\": {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-05-15\",\n        \"occupation\": \"Software Engineer\",\n        \"annual_income\": \"100000\"\n    },\n    \"address\": {\n        \"country\": \"US\",\n        \"city\": \"New York\",\n        \"post_code\": \"10001\",\n        \"details\": \"123 Main Street, Apt 4B\"\n    },\n    \"document\": {\n        \"type\": \"2\",\n        \"number\": \"P12345678\",\n        \"country\": \"US\",\n        \"expiry_date\": \"2030-12-31\",\n        \"front\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD...\",\n        \"back\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD...\",\n        \"face\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD...\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/carduser/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"carduser",
+								"create"
+							]
+						},
+						"description": "Create a new card holder with valid data according to MusePay API v1.\nRoute: POST /api/v1/musewallet/carduser/create\nMusePay API: POST /v1/carduser/create\n\nFields corrected according to MusePay documentation:\n- individual.date_of_birth (not birthday)\n- document.front (not front_image)\n- document.back (not back_image)\n- document.face (not selfie_image)\n- address.post_code (not postal_code)\n- address.details (not address_line1)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Card Holder (Minimal)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_xid\": \"{{$randomUUID}}\",\n    \"email\": \"jane.smith@example.com\",\n    \"individual\": {\n        \"first_name\": \"Jane\",\n        \"last_name\": \"Smith\",\n        \"date_of_birth\": \"1985-08-22\"\n    },\n    \"address\": {\n        \"country\": \"GB\",\n        \"city\": \"London\",\n        \"post_code\": \"SW1A 1AA\",\n        \"details\": \"10 Downing Street\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/carduser/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"carduser",
+								"create"
+							]
+						},
+						"description": "Create card holder with minimum required fields (document optional).\nRoute: POST /api/v1/musewallet/carduser/create\nMusePay API: POST /v1/carduser/create"
+					},
+					"response": []
+				}
+			],
+			"description": "Card holder creation and management"
+		},
+		{
+			"name": "Card Operations",
+			"item": [
+				{
+					"name": "Apply for Card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{user_id}}\",\n    \"request_id\": \"{{$randomUUID}}\",\n    \"card_product_id\": \"{{card_product_id}}\",\n    \"card_level\": \"1\",\n    \"phone_number\": \"2025550123\",\n    \"phone_area_code\": \"1\",\n    \"embossed_name\": \"JOHN DOE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/card/apply",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"card",
+								"apply"
+							]
+						},
+						"description": "Apply for a new card.\nRoute: POST /api/v1/musewallet/card/apply\nMusePay API: POST /v1/card/apply"
+					},
+					"response": []
+				},
+				{
+					"name": "Query Apply Result",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request_id\": \"{{request_id}}\",\n    \"user_id\": \"{{user_id}}\",\n    \"apply_id\": \"{{apply_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/card/apply-result",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"card",
+								"apply-result"
+							]
+						},
+						"description": "Query card application status.\nRoute: POST /api/v1/musewallet/card/apply-result\nMusePay API: POST /v1/card/apply-result\n\nNote: apply_id is optional"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Card Info",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"card_id\": \"{{card_id}}\",\n    \"user_id\": \"{{user_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/card/query",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"card",
+								"query"
+							]
+						},
+						"description": "Get detailed information about a card.\nRoute: POST /api/v1/musewallet/card/query\nMusePay API: POST /v1/card/query"
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{user_id}}\",\n    \"card_id\": \"{{card_id}}\",\n    \"request_id\": \"{{$randomUUID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/card/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"card",
+								"activate"
+							]
+						},
+						"description": "Activate a card.\nRoute: POST /api/v1/musewallet/card/activate\nMusePay API: POST /v1/card/activate"
+					},
+					"response": []
+				},
+				{
+					"name": "Top Up Card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"request_id\": \"{{$randomUUID}}\",\n    \"card_id\": \"{{card_id}}\",\n    \"user_id\": \"{{user_id}}\",\n    \"amount\": \"100.00\",\n    \"currency\": \"USDT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/cardaccount/topup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"cardaccount",
+								"topup"
+							]
+						},
+						"description": "Top up card balance.\nRoute: POST /api/v1/musewallet/cardaccount/topup\nMusePay API: POST /v1/cardaccount/topup"
+					},
+					"response": []
+				}
+			],
+			"description": "Card application and management operations"
+		},
+		{
+			"name": "KYC Operations",
+			"item": [
+				{
+					"name": "Upload KYC Documents",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_xid\": \"{{user_xid}}\",\n    \"individual\": {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-05-15\",\n        \"occupation\": \"Software Engineer\",\n        \"annual_income\": \"100000\"\n    },\n    \"document\": {\n        \"type\": \"1\",\n        \"number\": \"ID987654321\",\n        \"country\": \"US\",\n        \"expiry_date\": \"2028-06-30\",\n        \"front\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDA...\",\n        \"back\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDA...\",\n        \"face\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDA...\"\n    },\n    \"address\": {\n        \"country\": \"US\",\n        \"city\": \"San Francisco\",\n        \"post_code\": \"94102\",\n        \"details\": \"456 Market Street, Suite 200\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/carduser/upload-kyc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"carduser",
+								"upload-kyc"
+							]
+						},
+						"description": "Upload KYC documents for verification.\nRoute: POST /api/v1/musewallet/carduser/upload-kyc\nMusePay API: POST /v1/carduser/upload-kyc"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate KYC Link",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_xid\": \"{{user_xid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/carduser/kyc-link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"carduser",
+								"kyc-link"
+							]
+						},
+						"description": "Generate KYC verification link for user.\nRoute: POST /api/v1/musewallet/carduser/kyc-link\nMusePay API: POST /v1/carduser/kyc-link"
+					},
+					"response": []
+				}
+			],
+			"description": "KYC document management and verification"
+		},
+		{
+			"name": "Webhooks",
+			"item": [
+				{
+					"name": "Webhook - Card Created",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Musewallet-Signature",
+								"value": "signature_here"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"CARD_CREATED\",\n    \"timestamp\": 1698765432,\n    \"data\": {\n        \"card_id\": \"card_123456789\",\n        \"user_id\": \"user_123\",\n        \"card_status\": \"PENDING_ACTIVE\",\n        \"card_number_last4\": \"1234\"\n    },\n    \"sign\": \"base64_signature_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"webhook"
+							]
+						},
+						"description": "Webhook notification for card created event.\nRoute: POST /api/v1/musewallet/webhook\nPublic endpoint (no authentication required)"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - Application Approved",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Musewallet-Signature",
+								"value": "signature_here"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"APPLY_AUDIT\",\n    \"timestamp\": 1698765432,\n    \"data\": {\n        \"applyId\": \"apply_123456\",\n        \"userId\": \"user_123\",\n        \"requestId\": \"req_789\",\n        \"status\": 1,\n        \"cardId\": \"card_987654\"\n    },\n    \"sign\": \"base64_signature_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"webhook"
+							]
+						},
+						"description": "Webhook notification for card application approved.\nRoute: POST /api/v1/musewallet/webhook"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - Transaction Completed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Musewallet-Signature",
+								"value": "signature_here"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"CARD_BILL_TRANSACTION\",\n    \"timestamp\": 1698765432,\n    \"data\": {\n        \"detailId\": \"tx_987654321\",\n        \"cardId\": \"card_123456789\",\n        \"txStatus\": \"COMPLETED\",\n        \"txType\": \"PURCHASE\",\n        \"txAmount\": 50.00,\n        \"txCurrency\": \"USD\",\n        \"txCreatedAt\": 1698765432000\n    },\n    \"sign\": \"base64_signature_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"webhook"
+							]
+						},
+						"description": "Webhook notification for transaction completed event.\nRoute: POST /api/v1/musewallet/webhook"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - Top Up Completed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Musewallet-Signature",
+								"value": "signature_here"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"CARD_TOP_UP\",\n    \"timestamp\": 1698765432,\n    \"data\": {\n        \"orderNo\": \"order_123456\",\n        \"requestId\": \"req_789\",\n        \"orderType\": \"top-up\",\n        \"orderCurrency\": \"USDT\",\n        \"orderAmount\": \"100.00\",\n        \"status\": 1,\n        \"cardId\": \"card_123456789\"\n    },\n    \"sign\": \"base64_signature_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"webhook"
+							]
+						},
+						"description": "Webhook notification for top up completed event.\nRoute: POST /api/v1/musewallet/webhook"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - KYC Approved",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Musewallet-Signature",
+								"value": "signature_here"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"KYC_APPROVED\",\n    \"timestamp\": 1698765432,\n    \"data\": {\n        \"userId\": \"user_123\",\n        \"userXid\": \"user_ext_456\",\n        \"kycStatus\": \"APPROVED\"\n    },\n    \"sign\": \"base64_signature_string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/musewallet/webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"musewallet",
+								"webhook"
+							]
+						},
+						"description": "Webhook notification for KYC approved event.\nRoute: POST /api/v1/musewallet/webhook"
+					},
+					"response": []
+				}
+			],
+			"description": "Webhook endpoints for receiving notifications"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "currency",
+			"value": "USDT",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "8000123",
+			"type": "string"
+		},
+		{
+			"key": "user_xid",
+			"value": "user_ext_123456",
+			"type": "string"
+		},
+		{
+			"key": "card_product_id",
+			"value": "prod_visa_virtual_01",
+			"type": "string"
+		},
+		{
+			"key": "card_id",
+			"value": "card_123456789",
+			"type": "string"
+		},
+		{
+			"key": "request_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "apply_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
