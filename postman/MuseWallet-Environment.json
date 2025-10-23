@@ -16,10 +16,10 @@
 		},
 		{
 			"key": "currency",
-			"value": "USDT_TRC20",
+			"value": "USDT",
 			"type": "default",
 			"enabled": true,
-			"description": "Available: USDT_TRC20, USDT_ERC20, USDC"
+			"description": "Available: USDT, USDC, EUR, GBP"
 		},
 		{
 			"key": "user_id",

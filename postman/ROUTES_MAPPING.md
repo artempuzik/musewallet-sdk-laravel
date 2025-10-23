@@ -83,7 +83,7 @@ POST /api/v1/musewallet/balance/partner
 Content-Type: application/json
 
 {
-    "currency": "USDT_TRC20"
+    "currency": "USDT"
 }
 ```
 
@@ -241,7 +241,7 @@ X-Musewallet-Signature: signature_here
 ### 2. Configure Environment Variables
 ```
 base_url = http://localhost:8000
-currency = USDT_TRC20
+currency = USDT
 user_id = (get from create card holder response)
 user_xid = your_external_user_id
 card_product_id = (get from get card products response)

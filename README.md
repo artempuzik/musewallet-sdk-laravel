@@ -34,10 +34,29 @@ A comprehensive Laravel SDK for integrating with MusePay Card API (MuseWallet). 
 
 ## Installation
 
-Install the package via Composer:
+### Option 1: Install from Packagist (Recommended when published)
 
 ```bash
 composer require artempuzik/musewallet-sdk-laravel
+```
+
+### Option 2: Install from GitHub (Before Packagist publication)
+
+If the package is not yet published on Packagist, add the GitHub repository to your `composer.json`:
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/artempuzik/musewallet-sdk-laravel.git"
+    }
+],
+```
+
+Then install:
+
+```bash
+composer require artempuzik/musewallet-sdk-laravel:^1.0
 ```
 
 **That's it!** The package is ready to use. Laravel will automatically discover and register the service provider.

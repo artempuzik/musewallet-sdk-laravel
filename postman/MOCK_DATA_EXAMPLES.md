@@ -162,7 +162,7 @@ Ready-to-use valid data for copying and using in Postman or tests.
     "card_id": "card_123456789",
     "user_id": "8000123",
     "amount": "100.00",
-    "currency": "USDT_TRC20"
+    "currency": "USDT"
 }
 ```
 
@@ -211,9 +211,10 @@ Ready-to-use valid data for copying and using in Postman or tests.
 
 ## 💰 Supported Currencies
 
-- `USDT_TRC20` - Tether (TRC20)
-- `USDT_ERC20` - Tether (ERC20)
+- `USDT` - Tether USD
 - `USDC` - USD Coin
+- `EUR` - Euro
+- `GBP` - British Pound
 
 ## 🌍 Country Codes (ISO 3166-1 alpha-2)
 

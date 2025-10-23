@@ -27,7 +27,7 @@ Update the following variables in the environment:
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `base_url` | Your API URL | `http://localhost:8000` |
-| `currency` | Currency for operations | `USDT_TRC20` |
+| `currency` | Currency for operations | `USDT` |
 | `user_id` | MuseWallet user ID | `8000123` |
 | `user_xid` | Your external user ID | `user_ext_123456` |
 | `card_product_id` | Card product ID | `prod_visa_virtual_01` |
@@ -142,7 +142,7 @@ All requests in the collection contain valid mock data:
   - `1` - National ID
   - `2` - Passport
 - **Card Levels**: `1` (Basic), `2` (Silver), `3` (Gold), `4` (Platinum), `5` (Black)
-- **Currencies**: `USDT_TRC20`, `USDT_ERC20`, `USDC`
+- **Currencies**: `USDT`, `USDC`, `EUR`, `GBP`
 
 ## 🔒 Base64 Images
 

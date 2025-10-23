@@ -4,9 +4,31 @@
 
 ### 1. Installation
 
+#### Option A: From Packagist (Recommended when published)
+
 ```bash
-# Install the package
 composer require artempuzik/musewallet-sdk-laravel
+```
+
+#### Option B: From GitHub (Before Packagist publication)
+
+If the package is not yet published on Packagist, first add the repository to your `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/artempuzik/musewallet-sdk-laravel.git"
+        }
+    ]
+}
+```
+
+Then install the package:
+
+```bash
+composer require artempuzik/musewallet-sdk-laravel:^1.0
 ```
 
 **That's it!** The package is ready to use immediately. Laravel will automatically discover and register the service provider.
